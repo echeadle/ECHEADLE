@@ -1,3 +1,13 @@
+# Ignore Books and CODE
+BOOKS
+CODE
+
+# Ignore Pycharm file
+.DS_Store
+
+# Ignore Vagrant
+.vagrant
+
 # Binaries for programs and plugins
 *.exe
 *.exe~

@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+API_VERSION = "2"
+
+Vagrant.configure(API_VERSION) do |config|
+
+  config.vm.define "ubuntu1" do |ubuntu1|
+    ubuntu1.vm.box = "ubuntu/xenial64"
+    ubuntu1.vm.network "private_network", ip: "192.168.34.10"
+    ubuntu1.vm.hostname = "kube-m1"
+
+    ubuntu1.vm.provider :virtualbox do |v|
+      v.memory = 1536
+      v.cpus = 2
+      #v.linked_clone = true
+    end
+  end
+end

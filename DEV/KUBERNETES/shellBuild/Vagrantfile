@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$provisionScript = <<-SCRIPT
+sed -i 's#PasswordAuthentication no#PasswordAuthentication yes#g' /etc/ssh/sshd_config
+systemctl restart sshd
+apt-get update
+apt-get -y install python, curl
+curl https://sdk.cloud.google.com | bash
+SCRIPT
+
+API_VERSION = "2"
+
+Vagrant.configure(API_VERSION) do |config|
+
+  config.vm.provision "shell", inline: $provisionScript
+  
+  config.vm.define "ubuntu1" do |ubuntu1|
+    ubuntu1.vm.box = "ubuntu/xenial64"
+    ubuntu1.vm.network "private_network", ip: "192.168.34.10"
+    ubuntu1.vm.hostname = "kube-m1"
+
+    ubuntu1.vm.provider :virtualbox do |v|
+      v.memory = 1536
+      v.cpus = 2
+      #v.linked_clone = true
+    end
+  end
+end
