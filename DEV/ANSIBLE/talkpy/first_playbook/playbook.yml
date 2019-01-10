@@ -1,0 +1,7 @@
+---
+# high level instructions
+- name: apply local configuration to servers listed in hots
+  hosts: all
+  user: root
+  roles:
+    - role: common

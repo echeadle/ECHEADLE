@@ -1,0 +1,21 @@
+---
+
+# Create new user and add authorized key to log in
+
+- name: create non-root user group
+  group:
+    name: "deployers"
+    state: present
+
+- name: create non-root user
+  user:
+    name: "deployer"
+    group: "deployers"
+    shell: "/bin/bash"
+    state: present
+
+- name: add authorized_key for non-root user
+  authorized_key:
+    user: deployer
+    state: present
+    key: "{{ lookup('file', '/Users/r611171/Documents/ECHEADLE/DEV/ANSIBLE/talkpy/first_playbook/first_playbook.pub' )}}"
