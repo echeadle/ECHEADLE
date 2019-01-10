@@ -1,0 +1,5 @@
+deploy_user: deployer
+deploy_group: deployers
+shell_used: "/bin/bash"
+
+authorized_key_filename: "{{ lookup('env', 'AUTHORIZED_KEY_FILENAME')}}"

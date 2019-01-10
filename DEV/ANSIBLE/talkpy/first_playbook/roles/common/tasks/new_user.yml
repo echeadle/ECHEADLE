@@ -4,18 +4,18 @@
 
 - name: create non-root user group
   group:
-    name: "deployers"
+    name: "{{ deploy_group }}"
     state: present
 
 - name: create non-root user
   user:
-    name: "deployer"
-    group: "deployers"
-    shell: "/bin/bash"
+    name:  "{{ deploy_user }}"
+    group: "{{ deploy_group }}"
+    shell: "{{ shell_used }}"
     state: present
 
 - name: add authorized_key for non-root user
   authorized_key:
     user: deployer
     state: present
-    key: "{{ lookup('file', '/Users/r611171/Documents/ECHEADLE/DEV/ANSIBLE/talkpy/first_playbook/first_playbook.pub' )}}"
+    key: "{{ lookup('file', authorized_key_filename )}}"

@@ -1,0 +1,14 @@
+[init_config]
+104.248.77.159  ansible_python_interpreter=/usr/bin/python3
+104.248.216.127 ansible_python_interpreter=/usr/bin/python3
+
+[common]
+104.248.77.159  ansible_python_interpreter=/usr/bin/python3
+104.248.216.127 ansible_python_interpreter=/usr/bin/python3
+
+[webserver]
+104.248.77.159  ansible_python_interpreter=/usr/bin/python3
+
+
+[database]
+104.248.216.127 ansible_python_interpreter=/usr/bin/python3
