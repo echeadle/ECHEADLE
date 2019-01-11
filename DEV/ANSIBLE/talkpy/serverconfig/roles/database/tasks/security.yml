@@ -1,0 +1,4 @@
+# install database ufw ecurity configuration
+- name: enable PostgresSQL access
+  ufw: rule=allow port=5432
+  become: yes

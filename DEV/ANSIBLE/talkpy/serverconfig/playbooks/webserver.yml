@@ -1,0 +1,7 @@
+# configures a web server
+- name: apply webserver config to server
+  hosts: webserver
+  user: deployer
+  roles:
+    - role: common
+    - role: webserver

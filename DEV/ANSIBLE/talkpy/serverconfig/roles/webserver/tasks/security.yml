@@ -1,0 +1,8 @@
+# install web server ufw security configuration
+- name: enable HTTP within the firewall
+  ufw: rule=allow port=80
+  become: yes
+
+- name: enable HTTPS within the firewall
+  ufw: rule=allow port=443
+  become: yes
