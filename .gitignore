@@ -8,6 +8,9 @@ CODE
 # Ignore Vagrant
 .vagrant
 
+# Ignore Ansible
+.retry
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
