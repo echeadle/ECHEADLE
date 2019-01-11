@@ -1,0 +1,4 @@
+deploy_user: depolyer
+deploy_group: deployers
+ssh_dir: "/Users/r611171/Documents/ECHEADLE/DEV/ANSIBLE/talkpy/serverconfig/"
+ssh_key_name: "serverconfig"
