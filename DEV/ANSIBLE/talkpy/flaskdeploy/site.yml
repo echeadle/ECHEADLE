@@ -1,0 +1,3 @@
+# top level playbook for site
+- import_playbook: ./playbooks/webserver.yml
+- import_playbook: ./playbooks/database.yml

@@ -1,0 +1,24 @@
+# install and configure PostgresSQL database
+- name: esure PostgresSQL database packages are installed
+  apt:
+    name: [
+                postgresql,
+                libpq-dev,
+                python3-psycopg2,
+                postgresql-client,
+                postgresql-client-common
+              ]
+    cache_valid_time: 3600
+  become: yes
+
+- name: create database instance
+  postgresql_db: name={{ db_name }}
+  become: yes
+  become_user: postgres
+
+- name: configure separate PostgresSQL user
+  postgresql_user: db={{ db_name }} name={{ db_user }}
+                   password={{ db_password }} priv=ALL 
+                   role_attr_flags=NOSUPERUSER
+  become: yes
+  become_user: postgres
