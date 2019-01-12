@@ -9,9 +9,29 @@
 
 - name: write custom Nginx configuration
   template: src=nginx_conf.j2
-            dest=/etc/nginx/conf.d/app.conf
+            dest=/etc/nginx/conf.d/{{ app_name }}.conf
   become: yes
 
 - name: create Lets Encrypt directory
   file: name=/var/www/letsencrypt state=directory
   become: yes
+
+- name: remove default Nginx configuration
+  file: name=/etc/nginx/sites-enabled/default state=absent
+  become: yes
+
+- name: check if certificates exist
+  stat:
+    path: "/etc/letsencrypt/live/{{ fqdn }}"
+  register: certs
+  become: yes
+
+- name: create certificate with Lets Encrypt command
+  shell: "letsencrypt certonly --standalone -d {{ fqdn }} -w {{ web_server-dir }} -m {{ ssl_cert_email }} --agree-tos --renew-by-default"
+  become: yes
+  when: not certs.stat.exists
+
+- name: generate strong Diffie-Hellman group
+  shell: "openssl dhparam -out /etc/ssl/certs/shparam.pem 2048"
+  become: yes
+  when: not certs.stat.exists

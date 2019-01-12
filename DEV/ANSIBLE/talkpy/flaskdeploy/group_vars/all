@@ -1,8 +1,16 @@
 deploy_user: deployer
 deploy_group: deployers
-ssh_dir: "/Users/r611171/Documents/ECHEADLE/DEV/ANSIBLE/talkpy/serverconfig/"
-ssh_key_name: "serverconfig"
+ssh_dir: "/Users/r611171/Documents/ECHEADLE/DEV/ANSIBLE/talkpy/flaskdeploy/"
+ssh_key_name: "flaskdeploy"
 
-db_name: "chapter6"
+db_name: "flaskdeploy"
 db_user: "{{ deploy_user }}"
 db_password: pleaseuseagoodpassword
+
+app_name: flaskdeploy
+fqdn: "www.echeadle.info"
+web_server_dir: "/var/www/html"
+ssl_cert_email: "edward.cheadle8@gmail.com"
+
+wsgi_server_port: 8000
+sub_app_dir: "/home/{{ deploy_user }}/{{ app_name }}/app"
