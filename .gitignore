@@ -9,10 +9,10 @@ CODE
 .vagrant
 
 # Ignore Log files
-.log
+*.log
 
 # Ignore Ansible
-.retry
+*.retry
 
 # Binaries for programs and plugins
 *.exe
