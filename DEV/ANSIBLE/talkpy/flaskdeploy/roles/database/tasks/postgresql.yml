@@ -18,7 +18,15 @@
 
 - name: configure separate PostgresSQL user
   postgresql_user: db={{ db_name }} name={{ db_user }}
-                   password={{ db_password }} priv=ALL 
+                   password={{ db_password }} priv=ALL
                    role_attr_flags=NOSUPERUSER
   become: yes
   become_user: postgres
+
+- name: allow connections from our webserver
+  lineinfile:
+    path: /etc/postgresql/10/main/pg_hba.conf
+    state: present
+    insertafter: "# TYPE  DATABASE        USER            ADDRESS                 METHOD"
+    line:        "host    {{ db_name }}   {{ db_user }}   104.248.216.127         trust"
+  become: yes

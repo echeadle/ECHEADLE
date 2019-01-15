@@ -11,7 +11,9 @@
   template: src=nginx_conf.j2
             dest=/etc/nginx/conf.d/{{ app_name }}.conf
   become: yes
-
+  notify:
+    - restart nginx
+    
 - name: create Lets Encrypt directory
   file: name=/var/www/letsencrypt state=directory
   become: yes
@@ -26,12 +28,25 @@
   register: certs
   become: yes
 
+- name: stop nginx to obtain Lets Encrypt certificates
+  service:
+    name: nginx
+    state: stopped
+  become: yes
+  when: not certs.stat.exists
+
 - name: create certificate with Lets Encrypt command
-  shell: "letsencrypt certonly --standalone -d {{ fqdn }} -w {{ web_server-dir }} -m {{ ssl_cert_email }} --agree-tos --renew-by-default"
+  shell: "letsencrypt certonly --standalone -d {{ fqdn }} -w {{ web_server_dir }} -m {{ ssl_cert_email }} --agree-tos --renew-by-default --non-interactive"
   become: yes
   when: not certs.stat.exists
 
 - name: generate strong Diffie-Hellman group
-  shell: "openssl dhparam -out /etc/ssl/certs/shparam.pem 2048"
+  shell: "openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048"
   become: yes
   when: not certs.stat.exists
+
+- name: Start nginx after obtaining Lets Encrypt certificates
+  service:
+    name: nginx
+    state: started
+  become: yes
