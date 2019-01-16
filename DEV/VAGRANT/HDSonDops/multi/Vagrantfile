@@ -1,7 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
-
+    config.vm.box = "ubuntu/xenial64"
+  # Configure load balancer machine
+    config.vm.define "lb1" do |lb1|
+  end
+  # Configure first web machine
+    config.vm.define "web1" do |web1|
+  end
+  # Configure second web machine
+    config.vm.define "web2" do |web2|
+  end
 end
